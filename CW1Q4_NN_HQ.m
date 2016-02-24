@@ -75,3 +75,5 @@ trueID = reshape(repmat(1:52,2,1),1,52*2);
 
 correctRate = length(find(predictedID == trueID))/104;
 display(correctRate, 'Rate of correct prediction');
+
+% adding comments try
