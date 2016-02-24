@@ -1,4 +1,4 @@
-% Q2
+% Q1
 clear;
 close all;
 
@@ -7,13 +7,13 @@ load face.mat
 
 %% Partition
 % 80% for training + 20% for testing
-indexXtrain = 1:1:8;
+indexXtrain = 1:8;
 indexXtest = 9:10;
 
 Xtrain = [];
 Xtest = [];
 
-for iX = 0:1:51
+for iX = 0:51
     Xtrain = [Xtrain, X(:,indexXtrain+10*iX)];
     Xtest = [Xtest, X(:,indexXtest+10*iX)];
 end
@@ -23,16 +23,16 @@ end
 averageFace = mean(Xtrain,2);
 
 % visualize mean face
-aveFaceDisplay = reshape(averageFace, 56,46);
+aveFaceDisplay = reshape(averageFace, [56,46]);
 figure
-imshow(uint8(aveFaceDisplay));
+imshow(uint8(aveFaceDisplay)),title('Mean face image');
 
 % sustract mean face
-averageFace = repmat(averageFace, [1,416]);
-A = Xtrain - averageFace;
+averageFace = repmat(averageFace, [1,520]);
+A = X - averageFace;
 
-% covariance matrix (1/N)AT*A
-S = A.'*A/416;
+% covariance matrix (1/N)A*AT
+S = A*A.'/520;
 
 % eigenvector of S
 [eigVector, eigValue] = eig(S);
@@ -40,11 +40,10 @@ eigValue = diag(eigValue);
 [eigValueSort, sortID] = sort(eigValue,'descend');
 eigFaces = eigVector(:,sortID(1:50));
 
-% visualize eigenFaces
+% visualize first 50 eigenFaces
 figure
-eigFaceU = A*eigFaces;
 for iEigenFaces = 1:1:50
-    eigFaceDisplay = reshape(eigFaceU(:,iEigenFaces),56,46);
-    subplot(5,10,iEigenFaces);
+    eigFaceDisplay = reshape(eigFaces(:,iEigenFaces),[56,46]);
+    subplot(5,10,iEigenFaces)
     imagesc(eigFaceDisplay),colormap('gray');
 end

@@ -1,4 +1,4 @@
-% Q2
+% Q3
 clear;
 close all;
 
@@ -42,9 +42,13 @@ eigFaces = eigVector(:,sortID(1:50));
 
 % visualize eigenFaces
 figure
+
 eigFaceU = A*eigFaces;
 for iEigenFaces = 1:1:50
     eigFaceDisplay = reshape(eigFaceU(:,iEigenFaces),56,46);
     subplot(5,10,iEigenFaces);
     imagesc(eigFaceDisplay),colormap('gray');
 end
+
+A_Projection = A.'* eigFaceU;
+
