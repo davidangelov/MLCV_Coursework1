@@ -63,11 +63,7 @@ end
 %% Representing faces onto eigenfaces
 
 % The columns of the matrix are projections
-wMatrix = zeros(M,416);
-
-for in = 1:1:416
-    wMatrix(:,in) = (A(:,in).'*eigFacesU).';
-end
+wMatrix = (A.'*eigFacesU).';
 
 %% Testing
 
