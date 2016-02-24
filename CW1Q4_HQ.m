@@ -10,13 +10,14 @@ load face.mat
 
 %% Partition
 % 80% for training + 20% for testing
-indexXtrain = 1:1:8;
-indexXtest = 9:10;
+
+indexX = randperm(10,10);
+indexXtrain = indexX(1,1:8);
+indexXtest = indexX(1,9:10);
 
 % take random sets
-
-Xtrain = []; %training faces
-Xtest = []; %testing faces
+Xtrain = [];
+Xtest = [];
 
 for iX = 0:1:51
     Xtrain = [Xtrain, X(:,indexXtrain+10*iX)];
@@ -65,36 +66,50 @@ end
 wMatrix = zeros(M,416);
 
 for in = 1:1:416
-    
     wMatrix(:,in) = (A(:,in).'*eigFacesU).';
-    
 end
 
 %% Testing
-% idX = 28;
-idX = 3; % problem with this particular face?
 
-testFace = Xtest(:,idX);
-phiTest = testFace - averageFace(:,1);
+% % For 1 testing face
+% % idX = 28;
+% idX = 3; % problem with this particular face?
+% 
+% testFace = Xtest(:,idX);
+% phiTest = testFace - averageFace(:,1);
+% 
+% wTest = phiTest.'*eigFacesU;
+% wTest = wTest.';
+% 
+% en = zeros(1,416);
+% for ien = 1:1:416
+%     en(ien) = norm(wTest-wMatrix(:,ien));
+% end
+% 
+% % pdist2
+% 
+% [~,idRecog] = min(en);
+% recogFace = Xtrain(:,idRecog);
+% 
+% figure
+% subplot(121)
+% testFace = reshape(testFace,56,46);
+% imagesc(testFace);colormap('gray');
+% title('Test face');
+% subplot(122)
+% recogFace = reshape(recogFace,56,46);
+% imagesc(recogFace);colormap('gray');
+% title('Recogised face');
 
+phiTest = Xtest - averageFace(:,1:size(Xtest,2));
 wTest = phiTest.'*eigFacesU;
 wTest = wTest.';
 
-en = zeros(1,416);
-for ien = 1:1:416
-    en(ien) = norm(wTest-wMatrix(:,ien));
-end
-% pdist2
+predictedTrainID = fNN(wTest,wMatrix);
+% convert position to ID
+predictedID = floor(predictedTrainID/8)+1;
 
-[~,idRecog] = min(en);
-recogFace = Xtrain(:,idRecog);
+trueID = reshape(repmat(1:52,2,1),1,52*2);
 
-figure
-subplot(121)
-testFace = reshape(testFace,56,46);
-imagesc(testFace);colormap('gray');
-title('Test face');
-subplot(122)
-recogFace = reshape(recogFace,56,46);
-imagesc(recogFace);colormap('gray');
-title('Recogised face');
+correctRate = length(find(predictedID == trueID))/104;
+display(correctRate, 'Rate of correct prediction');
