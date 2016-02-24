@@ -48,56 +48,22 @@ eigValue = diag(eigValue);
 
 M = 50;
 eigFaces = eigVector(:,sortID(1:M));
+eigFacesU = A*eigFaces;
 
-% visualize first M = 50 eigenFaces
-eigFacesU = zeros(2576,M);
-
-figure
-for iEigenFaces = 1:1:M
-    eigFacesU(:,iEigenFaces) = A*eigFaces(:,iEigenFaces);
-    eigFaceDisplay = reshape(eigFacesU(:,iEigenFaces),56,46);
-    subplot(5,10,iEigenFaces);
-    imagesc(eigFaceDisplay),colormap('gray');
+% normalization
+for idU = 1:M
+    
+    eigFacesU(:,idU) = eigFacesU(:,idU)./norm(eigFacesU(:,idU));
+    
 end
-
 %% Representing faces onto eigenfaces
 
 % The columns of the matrix are projections
 wMatrix = (A.'*eigFacesU).';
 
 %% Testing
-
-% % For 1 testing face
-% % idX = 28;
-% idX = 3; % problem with this particular face?
-% 
-% testFace = Xtest(:,idX);
-% phiTest = testFace - averageFace(:,1);
-% 
-% wTest = phiTest.'*eigFacesU;
-% wTest = wTest.';
-% 
-% en = zeros(1,416);
-% for ien = 1:1:416
-%     en(ien) = norm(wTest-wMatrix(:,ien));
-% end
-% 
-% % pdist2
-% 
-% [~,idRecog] = min(en);
-% recogFace = Xtrain(:,idRecog);
-% 
-% figure
-% subplot(121)
-% testFace = reshape(testFace,56,46);
-% imagesc(testFace);colormap('gray');
-% title('Test face');
-% subplot(122)
-% recogFace = reshape(recogFace,56,46);
-% imagesc(recogFace);colormap('gray');
-% title('Recogised face');
-
 phiTest = Xtest - averageFace(:,1:size(Xtest,2));
+
 wTest = phiTest.'*eigFacesU;
 wTest = wTest.';
 
