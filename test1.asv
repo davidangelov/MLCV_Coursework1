@@ -28,10 +28,10 @@ end
 averageFace = mean(Xtrain,2);
 
 % visualize mean face
-% aveFaceDisplay = reshape(averageFace, 56,46);
-% figure
-% imshow(uint8(aveFaceDisplay));
-% title('Averaged face');
+aveFaceDisplay = reshape(averageFace, 56,46);
+figure
+imshow(uint8(aveFaceDisplay));
+title('Averaged face');
 
 % sustract mean face
 averageFace = repmat(averageFace, [1,416]);
@@ -45,7 +45,7 @@ S = A.'*A/416;
 eigValue = diag(eigValue);
 [eigValueSort, sortID] = sort(eigValue,'descend');
 
-M = 100;
+M = 10;
 eigFaces = eigVector(:,sortID(1:M));
 eigFacesU = A*eigFaces;
 
@@ -85,14 +85,9 @@ end
 
 Reconstruction_error = Xtrain - XReconstruct;
 
-Errors = zeros(1,20);
 for iError = 1:20
-    Errors(1,iError) = norm(Reconstruction_error(:,iError*8));
+    norm(eigFacesU(:,iError*8))
 end
-
-Mean_Error = mean(Errors);
-
-display(Mean_Error, 'Mean Recognition Error Across 20 different faces');
     
     
     

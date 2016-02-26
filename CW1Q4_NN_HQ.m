@@ -46,7 +46,7 @@ S = A.'*A/416;
 eigValue = diag(eigValue);
 [eigValueSort, sortID] = sort(eigValue,'descend');
 
-M = 50;
+M = 100;
 eigFaces = eigVector(:,sortID(1:M));
 eigFacesU = A*eigFaces;
 
@@ -64,14 +64,14 @@ wMatrix = (A.'*eigFacesU).';
 %% Testing
 phiTest = Xtest - averageFace(:,1:size(Xtest,2));
 
-wTest = phiTest.'*eigFacesU;
-wTest = wTest.';
+wTest = (phiTest.'*eigFacesU).';
 
-predictedTrainID = fNN(wTest,wMatrix);
+[predictedTrainID, en] = fNN(wTest,wMatrix);
 % convert position to ID
-predictedID = floor(predictedTrainID/8)+1;
+predictedID = ceil(predictedTrainID/8);
 
 trueID = reshape(repmat(1:52,2,1),1,52*2);
 
+x = find(predictedID == trueID);
 correctRate = length(find(predictedID == trueID))/104;
 display(correctRate, 'Rate of correct prediction');

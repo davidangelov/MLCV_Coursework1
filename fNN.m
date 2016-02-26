@@ -8,7 +8,7 @@
 % Output
 % errorMinID = minimum error ID in training set
 
-function errorMinID = fNN(wTest, wTrain)
+function [errorMinID, en] = fNN(wTest, wTrain)
 
     wTest = wTest.';
     wTrain = wTrain.';
