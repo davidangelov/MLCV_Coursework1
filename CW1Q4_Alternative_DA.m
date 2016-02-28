@@ -7,7 +7,7 @@ close all;
 
 load face.mat
 % 520 images of size 56x46
-
+%
 %% Partition
 % 80% for training + 20% for testing
 
