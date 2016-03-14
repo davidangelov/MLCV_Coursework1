@@ -7,8 +7,9 @@ load face.mat
 
 %% Partition
 % 80% for training + 20% for testing
-indexXtrain = 1:1:8;
-indexXtest = 9:10;
+indexX = randperm(10,10);
+indexXtrain = indexX(1,1:8);
+indexXtest = indexX(1,9:10);
 
 Xtrain = [];
 Xtest = [];
@@ -48,6 +49,7 @@ for iEigenFaces = 1:1:50
     eigFaceDisplay = reshape(eigFaceU(:,iEigenFaces),56,46);
     subplot(5,10,iEigenFaces);
     imagesc(eigFaceDisplay),colormap('gray');
+    axis 'off'
 end
 
 A_Projection = A.'* eigFaceU;
