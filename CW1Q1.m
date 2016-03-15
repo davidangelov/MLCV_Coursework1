@@ -26,7 +26,8 @@ averageFace = mean(Xtrain,2);
 % visualize mean face
 aveFaceDisplay = reshape(averageFace, [56,46]);
 figure
-imshow(uint8(aveFaceDisplay)),title('Mean face image');
+imshow(uint8(aveFaceDisplay),'Border', 'tight'),title('Mean face image');
+
 
 % sustract mean face
 averageFace = repmat(averageFace, [1,416]);
@@ -42,11 +43,11 @@ eigValue = diag(eigValue);
 [eigValueSort, sortID] = sort(eigValue,'descend');
 eigFaces = eigVector(:,sortID(1:M));
 
-% visualize first 50 eigenFaces
+% visualize first 16 eigenFaces
 figure
-for iEigenFaces = 1:M
-    eigFaceDisplay = reshape(eigFaces(:,iEigenFaces),[56,46]);
-    subplot(5,10,iEigenFaces)
+for iEigenFaces = 1:16
+    eigFaceDisplay = reshape(eigFaces(:,iEigenFaces)/norm(eigFaces(:,iEigenFaces)),[56,46]);
+    subplot(4,4,iEigenFaces)
     imagesc(eigFaceDisplay),colormap('gray');
     axis 'off'
 end

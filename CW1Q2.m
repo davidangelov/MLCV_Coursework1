@@ -44,9 +44,9 @@ eigFaces = eigVector(:,sortID(1:50));
 % visualize eigenFaces
 figure
 eigFaceU = A*eigFaces;
-for iEigenFaces = 1:1:50
-    eigFaceDisplay = reshape(eigFaceU(:,iEigenFaces),56,46);
-    subplot(5,10,iEigenFaces);
+for iEigenFaces = 1:1:16
+    eigFaceDisplay = reshape(eigFaceU(:,iEigenFaces)/norm(eigFaceU(:,iEigenFaces)),56,46);
+    subplot(4,4,iEigenFaces);
     imagesc(eigFaceDisplay),colormap('gray');
     axis 'off'
 end

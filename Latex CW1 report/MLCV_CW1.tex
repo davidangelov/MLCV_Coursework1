@@ -54,23 +54,97 @@ Imperial College London\\
 %\thispagestyle{empty}
 
 %%%%%%%%% BODY TEXT
-\section{Introduction}
+\section{Question 1}
+In this coursework, we were given 10 normalized and vectorized face images for each of the 52 different people (referred to as 'class' in this report). Firstly, the given data set was separated into training data and testing data. In this coursework, 80\% of data was used for the purpose of training and 20\% of data were used for training. The partition was done by randomly selecting 8 out of 10 images for training. Naturally, the remaining 2 images in each class were used for testing. This partition method ensured the randomness of the data sets and full coverage of classes.\\
+\\
+Next, we applied PCA to the training data by projecting the faces to so called face space, which is spanned by M eigenfaces. To acquire the eigenfaces, we started with computing the mean face $\boldsymbol{\bar{x}}$ from the $n$ training images $x_n$ by
+\begin{equation}
+ \boldsymbol{\bar{x}} = \frac{1}{N} \sum_{n=1}^N \boldsymbol{x_n}
+ \label{eq:mean_face}
+\end{equation}
 
-
+and the resulting mean face image is shown in Figure~\ref{fig:q1_meanface}. 
 
 
 \begin{figure}[H]
-\begin{center}
-   \includegraphics[width=0.8\linewidth]{8614-4.jpg}
-\end{center}
-   \caption{Example of caption.  It is set in Roman so that mathematics
-   (always set in Roman: $B \sin A = A \sin B$) may be included without an
-   ugly clash.}
-\label{fig:long}
+	\begin{center}
+		\includegraphics[width=0.8\linewidth]{q1_meanface}
+		\caption{Mean face}
+	\end{center}
+	\label{fig:q1_meanface}
 \end{figure}
 
 
+Then, the all training faces were normalized by subtracting the mean face
 
+\begin{equation}
+\boldsymbol{\phi}_n = \boldsymbol{x_n} - \boldsymbol{\bar{x}}
+\label{eq:q1_phi}
+\end{equation}
+
+and the matrix $\boldsymbol{A}$ can be acquired by
+
+\begin{equation}
+\boldsymbol{A} = [\phi_1, \phi_2, ..., \phi_N]
+\label{eq:q1_A}
+\end{equation}
+
+Then the covariance matrix was calculated by
+
+\begin{equation}
+	\boldsymbol{S} = \frac{1}{N} A A^T
+	\label{eq:q1_S}
+\end{equation}
+
+The eigenvectors $\boldsymbol{u_i}$ were calculated from the covariance matrix $S$ by $\boldsymbol{S u_i} = \lambda_i \boldsymbol{u_i}$. The dimension of the training data vector $x_n$ is $D = 2576$, denoted by $x_n \in R^D$ (for the data provided for this coursework). To reduce the dimension and maximising the variance of projected data, we selected M of the eigenvectors corresponding to the M largest eigenvalues $\lambda_i$ as eigenfaces. We found that among all the $\lambda_i$ ($i = 1,2, ..., D$), 415 out D eigenvalues were considered large (or non-zero), with order of magnitude ranging from 1 to 5. The remaining $D - 415 = 2161$ of the eigenvalues were considered as zeros with order of magnitude ranging from -10 to -13. In this coursework, we selected the largest $M = 50$ eigenfaces as the basis vectors for the face space. In Figure~\ref{fig:eigFaces}, we visualised 16 out of these 50 eigenfaces. The eigenfaces were visualised by reshaping the $x_n$ vector to a $54 \times 46$ matrix.
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.8\linewidth]{q1_eigenfaces}
+		\caption{The first 16 eigenfaces visualised}
+		\label{fig:eigFaces}
+	\end{center}
+\end{figure}
+
+To apply the PCA method, we projected every normalised training face $\phi_n$ to the M-dimensional subspace. Namely,
+\begin{equation}
+\omega_n = [a_{n1}, a_{n2}, ..., a_{nM}]
+\label{eq:project}
+\end{equation}
+
+where the projection of $n$th image on the $i$th eigenface is denoted by
+
+$$ a_{ni} = \phi_n^T \boldsymbol{u_i}, ~  i = 1,...,M$$
+
+Thus, the training faces were represented by its projections $\omega_n$. \\
+
+
+\section{Question 2}
+It can be noticed from Eq.\ref{eq:q1_S} that the dimension of the covariance matrix is $D\times D$, which equals to the number of pixels in an image and is typically large. Under the consideration of computational efficiency, we implemented another proposed method, in which the covariance matrix is calculated by
+
+\begin{equation}
+S = \frac{1}{N} A^T A
+\label{eq:S_q2}
+\end{equation}
+
+Since $A \in R^{D \times N}$, the covariance matrix now has dimension of $N \times N$, where $N$ equals to the number of images and is typically much smaller than $D$. As computing eigenvectors of large matrices is computational expensive, this method is preferred if proved equally effective for PCA. The resulting none-zero eigenvalues from Eq.\ref{eq:S_q2} had the same value of that using Eq.\ref{eq:q1_S}. Interestingly, the number of non-zero eigenvalues in this case is also 415. Note that the eigenvectors using this method were converted to the D-dimensional eigenvectors by 
+
+\begin{equation}
+	\boldsymbol{u_i} = A \boldsymbol{v_i}
+\end{equation}
+
+where $v_i$ denotes the eigenvectors calculated using the covariance matrix in Eq.\ref{eq:S_q2}. Figure~\ref{fig:q2_eigFaces} shows the visualised 16 eigenfaces. Comparing to the eigenfaces produced by the previous method (Figure~\ref{fig:eigFaces}), we notice that the face contour of the eigenfaces are the same. The difference in grey scale value could be caused by the randomisation of the data set and automatic normalisation by the image display function \texttt{imagesc} in MATLAB.\\
+
+In conclusion, the methods for the computation of covariance matrix in Q1 and Q2 were proven equally effective for PCA, while the latter method is less computational expensive. Hence we used $S = (1/N) A^T A$ to compute the covariance matrix for image recognition in later sections of this coursework.
+
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.8\linewidth]{q2_eigenfaces}
+		\caption{The first 16 eigenfaces visualised for question 2}
+		\label{fig:q2_eigFaces}
+	\end{center}
+\end{figure}
 
 %\begin{figure*}
 %\begin{center}
@@ -81,7 +155,7 @@ Imperial College London\\
 %\end{figure*}
 
 %------------------------------------------------------------------------
-\section{Formatting your paper}
+\section{Question 3}
 
 
 
