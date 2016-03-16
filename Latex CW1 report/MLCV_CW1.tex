@@ -114,20 +114,24 @@ To apply the PCA method, we projected every normalised training face $\phi_n$ to
 
 where the projection of $n$th image on the $i$th eigenface is denoted by
 
-$$ a_{ni} = \phi_n^T \boldsymbol{u_i}, ~  i = 1,...,M$$
+\begin{equation}
+a_{ni} = \phi_n^T \boldsymbol{u_i}, ~  i = 1,...,M
+\label{eq:project_a}
+\end{equation}
+
 
 Thus, the training faces were represented by its projections $\omega_n$. \\
 
 
 \section{Question 2}
-It can be noticed from Eq.\ref{eq:q1_S} that the dimension of the covariance matrix is $D\times D$, which equals to the number of pixels in an image and is typically large. Under the consideration of computational efficiency, we implemented another proposed method, in which the covariance matrix is calculated by
+In this question, we discuss two different methods of calculating covariance matrix $S$ in the scope of PCA. It can be noticed from Eq.\ref{eq:q1_S} that the dimension of the covariance matrix is $D\times D$, which equals to the number of pixels in an image and is typically large. Under the consideration of computational efficiency, we implemented another proposed method, in which the covariance matrix is calculated by
 
 \begin{equation}
 S = \frac{1}{N} A^T A
 \label{eq:S_q2}
 \end{equation}
 
-Since $A \in R^{D \times N}$, the covariance matrix now has dimension of $N \times N$, where $N$ equals to the number of images and is typically much smaller than $D$. As computing eigenvectors of large matrices is computational expensive, this method is preferred if proved equally effective for PCA. The resulting none-zero eigenvalues from Eq.\ref{eq:S_q2} had the same value of that using Eq.\ref{eq:q1_S}. Interestingly, the number of non-zero eigenvalues in this case is also 415. Note that the eigenvectors using this method were converted to the D-dimensional eigenvectors by 
+Since $A \in R^{D \times N}$, the covariance matrix now has dimension of $N \times N$, where $N$ equals to the number of images and is typically much smaller than $D$. As computing eigenvectors of large matrices is computational expensive, this method is preferred if proved equally effective for PCA. The resulting none-zero eigenvalues from Eq.\ref{eq:S_q2} had the same value of that using Eq.\ref{eq:q1_S}. The number of non-zero eigenvalues in this case is also 415. Note that the eigenvectors using this method were converted to the D-dimensional eigenvectors by 
 
 \begin{equation}
 	\boldsymbol{u_i} = A \boldsymbol{v_i}
@@ -140,7 +144,7 @@ In conclusion, the methods for the computation of covariance matrix in Q1 and Q2
 
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.8\linewidth]{q2_eigenfaces}
+		\includegraphics[width=1\linewidth]{q2_eigenfaces}
 		\caption{The first 16 eigenfaces visualised for question 2}
 		\label{fig:q2_eigFaces}
 	\end{center}
@@ -156,9 +160,72 @@ In conclusion, the methods for the computation of covariance matrix in Q1 and Q2
 
 %------------------------------------------------------------------------
 \section{Question 3}
+The face images can be reconstructed from their projection on the M-dimensional subspace $\omega_n$ by
 
+\begin{equation}
+	\boldsymbol{\widetilde{x_n}} = \boldsymbol{\bar{x}} + \sum_{i=1}^M a_{ni} \boldsymbol{u_i}
+\end{equation}
 
+where $\boldsymbol{\widetilde{x_n}}$ is the reconstructed face image. The reconstruction error, denoted as $J$ can be evaluated by
 
+\begin{equation}
+ J = \frac{1}{N} \sum_{n=1}^N || \boldsymbol{x_n} - \boldsymbol{\widetilde{x_n}}||^2
+ \label{eq:J}
+\end{equation}
+
+where N is the total number of images. The formulation of PCA that we applied in this coursework maximises the variance of the projection of training data by spanning the face space using M eigenvectors $\{ \boldsymbol{u_i} \}$ of $S$ corresponding to the largest M eigenvalues $\{ \lambda_i \}$ where ($i = 1,2,...,M$). This formulation equivalently minimises the reconstruction error $J$ so it theoretically becomes
+
+\begin{equation}
+J_{theo} = \sum_{i=M+1}^{D^*} \lambda_i
+\label{eq:J_theo}
+\end{equation}
+
+The $D^*$ in Eq.\ref{eq:J_theo} is the total number of eigenvectors of $S$. For the method we selected in Question 2, $D^* = 416$, which equals to the total number of training images. We evaluated and compared the experimental $J$ calculated by Eq. \ref{eq:J} and theoretical $J_{theo}$ calculated by Eq.\ref{eq:J_theo} while varying the number of M. Figure~\ref{fig:q3_J} presents $J$ and $J_{theo}$ as M varying from 40 to 100.\\
+	
+	\begin{figure}
+		\begin{center}
+			\includegraphics[width=1\linewidth]{q3_J}
+			\caption{Reconstruction error, experimental vs theoretical}
+			\label{fig:q3_J}
+		\end{center}
+	\end{figure}
+
+It can be noticed that 1) the theoretical and experimental reconstruction errors are identical for all value of M; 2) the reconstruction error reduces when the number of M increases, but the gradient of the decreasing error curve reduces. This indicates that the positive effect of using more number of eigenfaces on reducing $J$ decreases as M increases. 
+
+Figure~\ref{fig:q3_rec_train} shows the original training faces and the corresponding reconstructed images. Similarly, Figure~\ref{fig:q3_rec_test} shows the original testing faces and corresponding reconstructed images. As we can observe, the face images were well-reconstructed for both training and testing faces.
+	
+	\begin{figure}
+		\begin{center}
+			\includegraphics[width=1\linewidth]{q3_rec_train}
+			\caption{Visualise reconstructed training images}
+			\label{fig:q3_rec_train}
+		\end{center}
+	\end{figure}
+	
+	
+	\begin{figure}
+		\begin{center}
+			\includegraphics[width=1\linewidth]{q3_rec_test}
+			\caption{Visualise reconstructed testing images}
+			\label{fig:q3_rec_test}
+		\end{center}
+	\end{figure}
+
+\section{Question 4}
+At the training stage, the training images were projected on the M-dimensional face space. The $n^{th}$ image in the training set was represented  as $\omega_n$. At testing stage, each testing image was normalised by Eq.\ref{eq:q1_phi} and then projected on the eigenspace by Eq.\ref{eq:project_a} and represented as
+
+$$ \omega = [a_1, a_2, ..., a_M]^T$$
+
+This process transformed the testing images to represented data points that can be classified to a specific image in training set, thus effectively, recognised. In this coursework, the classification was achieved by Nearest Neighbour method and Alternative method. We shall now discuss and compare the two methods.
+
+\subsection{Nearest Neighbour classification}
+In the Nearest Neighbour (NN) classification, the testing image is assigned to the class which has the minimum error $e$, which is calculated with respect to all training images as
+
+\begin{equation}
+	e = || \omega - \omega_n||, ~ n = 1, ..., N
+\end{equation}
+where recall N is the number of training images. 
+	
 
 {\small
 \bibliographystyle{ieee}
