@@ -7,17 +7,17 @@ close all;
 
 load face.mat
 % 520 images of size 56x46
-correctRate_sum = 0;
-train_time = 0;
-test_time = 0;
 
 correctRate_record = [];
 train_time_record = [];
 test_time_record = [];
 
-for M = 30:100
+for M = 1:100
+    correctRate_sum = 0;
+    train_time = 0;
+    test_time = 0;
     
-    for iter = 1:100
+    for iter = 1:50
     %% Partition
     % 80% for training + 20% for testing
 
@@ -52,7 +52,6 @@ for M = 30:100
     eigValue = diag(eigValue);
     [eigValueSort, sortID] = sort(eigValue,'descend');
 
-    M = 100;
     eigFaces = eigVector(:,sortID(1:M));
     eigFacesU = A*eigFaces;
 
@@ -98,10 +97,22 @@ end
 
 %% plotting results
 
-vM = 30:100;
-figure(1)
+vM = 1:100;
+figure(1) % correction rate
 plot(vM, correctRate_record);
+xlabel('Number of M'), ylabel('Averaged correction rate');
+ylim([0 0.8]); grid on
 
-figure(2)
-plot(vM, train_time_record,'b', vM, test_time_record, 'r');
+figure(2) % train and test time
+plot(vM, train_time_record,'b', vM, test_time_record, 'r',...
+    vM, train_time_record + test_time_record, 'k');
+xlabel('Number of M'), ylabel('Averaged time');
+legend('Training time', 'Testing time', 'Total time');
+grid on
 
+%% confusion matrix
+figure(3)
+fig3 = figure(3);
+conf_mat = confusionmat(trueID, predictedID);
+imagesc(conf_mat); colorbar;
+xlabel('Target class'), ylabel('Predicted class');

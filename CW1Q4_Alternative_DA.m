@@ -130,20 +130,20 @@ x = find(predictedID == trueID);
 correctRate = length(find(predictedID == trueID))/104;
 display(correctRate, 'Rate of correct prediction');
 
-% reconstructed testing image
-figure('Name','The first 20 reconstructed testing faces')
-for iX = 1:20
-    subplot(4,5,iX)
-    Xdisplay = reshape(XReconstruct(:,iX*2),[56,46]);
-    imagesc(Xdisplay),colormap('gray'); 
-    axis 'off'
-end
-
-% original testing image
-figure('Name','The first 20 testing faces')
-for iXtest = 1:20
-    subplot(4,5,iXtest);
-    Xdisplay = reshape(Xtest(:,iXtest*2),[56,46]);
-    imagesc(Xdisplay),colormap('gray');
-    axis 'off'
-end
+% % reconstructed testing image
+% figure('Name','The first 20 reconstructed testing faces')
+% for iX = 1:20
+%     subplot(4,5,iX)
+%     Xdisplay = reshape(XReconstruct(:,iX*2),[56,46]);
+%     imagesc(Xdisplay),colormap('gray'); 
+%     axis 'off'
+% end
+% 
+% % original testing image
+% figure('Name','The first 20 testing faces')
+% for iXtest = 1:20
+%     subplot(4,5,iXtest);
+%     Xdisplay = reshape(Xtest(:,iXtest*2),[56,46]);
+%     imagesc(Xdisplay),colormap('gray');
+%     axis 'off'
+% end
