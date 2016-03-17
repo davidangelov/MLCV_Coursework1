@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.15)  16 MAR 2016 20:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.15)  17 MAR 2016 22:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -455,83 +455,139 @@ File: q2_eigenfaces.png Graphic file (type png)
 Package pdftex.def Info: q2_eigenfaces.png used on input line 148.
 (pdftex.def)             Requested size: 237.13594pt x 178.04292pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 184--185
+Underfull \hbox (badness 10000) in paragraph at lines 185--186
 
  []
 
 <q3_J.png, id=44, 1445.4pt x 739.86412pt>
 File: q3_J.png Graphic file (type png)
  <use q3_J.png>
-Package pdftex.def Info: q3_J.png used on input line 188.
+Package pdftex.def Info: q3_J.png used on input line 189.
 (pdftex.def)             Requested size: 237.13594pt x 121.38365pt.
  [2 <./q2_eigenfaces.png (PNG copy)>] <q3_rec_train.png, id=63, 854.59274pt x 9
 87.38887pt>
 File: q3_rec_train.png Graphic file (type png)
 
 <use q3_rec_train.png>
-Package pdftex.def Info: q3_rec_train.png used on input line 200.
+Package pdftex.def Info: q3_rec_train.png used on input line 201.
 (pdftex.def)             Requested size: 237.13594pt x 273.98105pt.
  <q3_rec_test.png, id=64, 750.70462pt x 981.06525pt>
 File: q3_rec_test.png Graphic file (type png)
 
 <use q3_rec_test.png>
-Package pdftex.def Info: q3_rec_test.png used on input line 209.
+Package pdftex.def Info: q3_rec_test.png used on input line 210.
 (pdftex.def)             Requested size: 237.13594pt x 309.90544pt.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 231.
+ [3 <./q3_J.png (PNG copy)> <./q3_rec_train.png (PNG copy)> <./q3_rec_test.png 
+(PNG copy)>]
+<correctRate_NN.png, id=78, 1445.4pt x 725.71124pt>
+File: correctRate_NN.png Graphic file (type png)
+ <use correctRate_NN.png>
+Package pdftex.def Info: correctRate_NN.png used on input line 244.
+(pdftex.def)             Requested size: 237.13594pt x 119.0617pt.
 
-No file MLCV_CW1.bbl.
-[3 <./q3_J.png (PNG copy)> <./q3_rec_train.png (PNG copy)> <./q3_rec_test.png (
-PNG copy)>] (./init.m
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no ® in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no „ in font ptmr7t!
-Missing character: There is no Ã in font ptmr7t!
-Missing character: There is no — in font ptmr7t!
-) (./init.m
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no ® in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no „ in font ptmr7t!
-Missing character: There is no Ã in font ptmr7t!
-Missing character: There is no — in font ptmr7t!
-)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 255.
- [4
+<q4_fail_NN.png, id=80, 557.38237pt x 624.23213pt>
+File: q4_fail_NN.png Graphic file (type png)
+ <use q4_fail_NN.png>
+Package pdftex.def Info: q4_fail_NN.png used on input line 256.
+(pdftex.def)             Requested size: 213.41493pt x 170.71663pt.
 
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 255.
- (./MLCV_CW1.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 255.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 255.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 255.
+<confusion_matrix_NN.png, id=82, 594.72188pt x 491.58656pt>
+File: confusion_matrix_NN.png Graphic file (type png)
+
+<use confusion_matrix_NN.png>
+Package pdftex.def Info: confusion_matrix_NN.png used on input line 267.
+(pdftex.def)             Requested size: 213.41911pt x 170.7152pt.
+ [4 <./correctRate_NN.png (PNG copy)> <./q4_fail_NN.png (PNG copy)> <./confusio
+n_matrix_NN.png (PNG copy)>]
+<correctRate_alter.png, id=100, 1445.4pt x 725.71124pt>
+File: correctRate_alter.png Graphic file (type png)
+
+<use correctRate_alter.png>
+Package pdftex.def Info: correctRate_alter.png used on input line 289.
+(pdftex.def)             Requested size: 213.4209pt x 107.14667pt.
+
+<q4_fail_alter.png, id=102, 729.927pt x 695.59875pt>
+File: q4_fail_alter.png Graphic file (type png)
+ <use q4_fail_alter.png>
+Package pdftex.def Info: q4_fail_alter.png used on input line 301.
+(pdftex.def)             Requested size: 213.4209pt x 203.37425pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 308--309
+
+ []
+
+<confusion_matrix_alter.png, id=104, 841.9455pt x 730.83037pt>
+File: confusion_matrix_alter.png Graphic file (type png)
+
+<use confusion_matrix_alter.png>
+Package pdftex.def Info: confusion_matrix_alter.png used on input line 312.
+(pdftex.def)             Requested size: 213.4209pt x 185.2497pt.
+
+Underfull \hbox (badness 1377) in paragraph at lines 318--318
+[] \elvbf . Com-par-i-son be-tween NN and al-ter-na-tive
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 320--322
+
+ []
+
+[5 <./correctRate_alter.png (PNG copy)> <./q4_fail_alter.png (PNG copy)> <./con
+fusion_matrix_alter.png (PNG copy)>]
+<time_NN.png, id=123, 1445.4pt x 725.71124pt>
+File: time_NN.png Graphic file (type png)
+ <use time_NN.png>
+Package pdftex.def Info: time_NN.png used on input line 328.
+(pdftex.def)             Requested size: 213.4209pt x 107.14667pt.
+
+<time_alter.png, id=124, 1445.4pt x 738.96075pt>
+File: time_alter.png Graphic file (type png)
+ <use time_alter.png>
+Package pdftex.def Info: time_alter.png used on input line 336.
+(pdftex.def)             Requested size: 213.4209pt x 109.10287pt.
+
+(./MLCV_CW1.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 365.
+ [6 <./time_NN.png (PNG copy)> <./time_alter.png (PNG copy)>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 365.
+
+(./MLCV_CW1.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 365.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 365.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 365.
  ) 
 Here is how much of TeX's memory you used:
- 7761 strings out of 493089
- 112316 string characters out of 6134842
- 218260 words of memory out of 5000000
- 11051 multiletter control sequences out of 15000+600000
- 24806 words of font info for 68 fonts, out of 8000000 for 9000
+ 7804 strings out of 493089
+ 113185 string characters out of 6134842
+ 207971 words of memory out of 5000000
+ 11100 multiletter control sequences out of 15000+600000
+ 27977 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 34i,9n,32p,1036b,841s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,9n,32p,1036b,415s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/te
 xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/tex
 live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texl
-ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texliv
-e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texliv
-e/2015/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/local/te
-xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texl
-ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive
-/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/
-2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/20
-15/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015
-/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2015/texmf-d
-ist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/
-type1/urw/times/utmr8a.pfb>
-Output written on MLCV_CW1.pdf (4 pages, 410147 bytes).
+ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texliv
+e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/
+2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/20
+15/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/20
+15/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/local/texliv
+e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/
+2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/201
+5/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-
+dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2015/texmf-dist/fon
+ts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/u
+rw/times/utmr8a.pfb>
+Output written on MLCV_CW1.pdf (6 pages, 756479 bytes).
 PDF statistics:
- 182 PDF objects out of 1000 (max. 8388607)
- 154 compressed objects within 2 object streams
- 68 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 206 PDF objects out of 1000 (max. 8388607)
+ 165 compressed objects within 2 object streams
+ 53 named destinations out of 1000 (max. 500000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
 

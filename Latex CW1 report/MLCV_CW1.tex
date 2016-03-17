@@ -97,7 +97,7 @@ Then the covariance matrix was calculated by
 	\label{eq:q1_S}
 \end{equation}
 
-The eigenvectors $\boldsymbol{u_i}$ were calculated from the covariance matrix $S$ by $\boldsymbol{S u_i} = \lambda_i \boldsymbol{u_i}$. The dimension of the training data vector $x_n$ is $D = 2576$, denoted by $x_n \in R^D$ (for the data provided for this coursework). To reduce the dimension and maximising the variance of projected data, we selected M of the eigenvectors corresponding to the M largest eigenvalues $\lambda_i$ as eigenfaces. We found that among all the $\lambda_i$ ($i = 1,2, ..., D$), 415 out D eigenvalues were considered large (or non-zero), with order of magnitude ranging from 1 to 5. The remaining $D - 415 = 2161$ of the eigenvalues were considered as zeros with order of magnitude ranging from -10 to -13. In this coursework, we selected the largest $M = 50$ eigenfaces as the basis vectors for the face space. In Figure~\ref{fig:eigFaces}, we visualised 16 out of these 50 eigenfaces. The eigenfaces were visualised by reshaping the $x_n$ vector to a $54 \times 46$ matrix.
+The eigenvectors $\boldsymbol{u_i}$ were calculated from the covariance matrix $S$ by $\boldsymbol{S u_i} = \lambda_i \boldsymbol{u_i}$. The dimension of the training data vector $x_n$ is $D = 2576$, denoted by $x_n \in R^D$ (for the data provided for this coursework). To reduce the dimension and maximising the variance of projected data, we selected M of the eigenvectors corresponding to the M largest eigenvalues $\lambda_i$ as eigenfaces. We found that among all the $\lambda_i$ ($i = 1,2, ..., D$), 415 out D eigenvalues were considered large (or non-zero), with order of magnitude ranging from 1 to 5. The remaining $D - 415 = 2161$ of the eigenvalues were considered as zeros with order of magnitude ranging from -10 to -13. In this coursework, we selected the largest $M = 50$ eigenfaces as the basis vectors for the face space. In Figure~\ref{fig:eigFaces}, we visualised 16 out of these 50 eigenfaces. The eigenfaces were visualised by reshaping the $x_n$ vector to a $56 \times 46$ matrix.
 
 \begin{figure}
 	\begin{center}
@@ -165,6 +165,7 @@ The face images can be reconstructed from their projection on the M-dimensional 
 
 \begin{equation}
 	\boldsymbol{\widetilde{x_n}} = \boldsymbol{\bar{x}} + \sum_{i=1}^M a_{ni} \boldsymbol{u_i}
+	\label{eq:recon}
 \end{equation}
 
 where $\boldsymbol{\widetilde{x_n}}$ is the reconstructed face image. The reconstruction error, denoted as $J$ can be evaluated by
@@ -227,28 +228,137 @@ In the Nearest Neighbour (NN) classification, the testing image is assigned to t
 \end{equation}
 where recall N is the number of training images. 
 
+\subsubsection{Accuracy of recognition}
+Each of the testing image was assigned a label indicating which class the image was classified to. This is referred to as prediction in the report. To evaluate the accuracy of recognition, we calculated correction rate by 
+
+\begin{equation}
+	correction~ rate = \frac{number~of~correct~prediction}{number~of ~testing~image}
+	\label{eq:R_correct}
+\end{equation}
+
+The correction rate of PCA based face recognition can be affected by the number of eigenvector used to span the face subspace $M$. Hence, we varied the number of $M$ from 1 to 100 and calculated the corresponding correction rate. Considering the randomness of data partition, we iterated the traing-testing process for 50 times for each value of $M$ and averaged the correction rate. The result of the calculations are presented in Figure~\ref{fig:q4_nn_rate}. The correction rate increased rapidly as $M$ increased from 1 to around 30 and then converged to approximately 65\%. This indicates that it is unnecessary to use large number of eigenvector basis $\boldsymbol{u_i}$, despite there are 415 of $\boldsymbol{u_i}$ corresponding to largest eigenvalues available. As the computational complexity increases when $M$ increases, we came to the conclusion that a optimal value of $M$ is around 50-60 for this particular situation, as the correction rate started to converge in this region. 
 
 
+	\begin{figure}
+		\begin{center}
+			\includegraphics[width=1\linewidth]{correctRate_NN}
+			\caption{Correction rate of NN method}
+			\label{fig:q4_nn_rate}
+		\end{center}
+	\end{figure}
+	
+	
+\subsubsection{Example of failure cases}
+We now discuss the cases of failure for NN method classification. Two examples of failed classifications are shown in image (a) and (c) in Figure~\ref{fig:q4_nn_fail}. In this figure, image (b) and (d) are the images from the classes that image (a) and (c) were classified to in testing. In both comparison between both pairs (a)-(b) and (c)-(d), we can observe some non-decisive similarities in terms of facial feature. Similar comparisons were made on other misclassified testing images. However, no clear visual indication of the cause of incorrect recognition was established.
 
+	\begin{figure}
+		\begin{center}
+			\includegraphics[width=0.9\linewidth, height = 6cm]{q4_fail_NN}
+			\caption{(a)\&(c) Image of failed cases for NN method;  (b)\&(d) sample image from the class (a)\&(c) are classified as}
+			\label{fig:q4_nn_fail}
+		\end{center}
+	\end{figure}
 
+\subsubsection{Confusion matrix}
+The confusion matrix provides a visual impression of the recognition result. The confusion matrix of PCA based face recognition using NN classification is presented in Figure~\ref{fig:q4_confmat_nn}, which corresponds to a correction rate of 63\%. In the confusion matrix, the colour patches on the diagonal indicate correct predictions. Correspondingly, patches appeared on places other than the diagonal indicate a case of incorrect classification and the number of misclassified cases are indicated by the colour. 
+
+	\begin{figure}
+		\begin{center}
+			\includegraphics[width=0.9\linewidth, height = 6cm]{confusion_matrix_NN}
+			\caption{Confusion matrix of NN classification, $M = 100$}
+			\label{fig:q4_confmat_nn}
+		\end{center}
+	\end{figure}
 
 
 \subsection{Alternative method for classification}
+An alternative method oppose to the NN method was implemented in our coursework for classification of data points $\omega$. This method computes the eigenvectors and creates face subspace for every class separately and store the subspaces as training knowledge. At testing stage, the testing image was projected to individual subspaces using the Eq.\ref{eq:project_a} and reconstructed using Eq.\ref{eq:recon}. The assignment of predicted label depends on the measurement of reconstruction error by
 
+\begin{equation}
+	\hat{y} = arg_i ~ min || \boldsymbol{x} - \boldsymbol{\widetilde{x_i}}||
+\end{equation}
+
+where $\boldsymbol{x}$ is the testing image and $\boldsymbol{\widetilde{x_i}}$ is the reconstructed testing image using the eigenvector subspace computed from the $i$th class.
+
+\subsubsection{Accuracy of recognition}
+We tested all available testing images and calculate the correction rate as a measure of recognition accuracy. The correction rate is calculated using the same method used in NN method (Eq.\ref{eq:R_correct}). Similarly, we varied the number of eigenvectors used in each class to span the face subspace for the classes. Thus the number of eigenvector basis $M_{alter}$ can be varied between 1 and 8 and the total number of eigenvectors used is $52 \cdot M_{alter}$. Figure~\ref{fig:q4_alter_rate} is the resulting correction rate plotted against the value of $M_{alter}$. Same as in NN method, the correction rate was averaged over 50 iterations for every value of $M_{alter}$. The result indicates that 1) the alternative method achieved better correction rate than the NN method; 2) the conclusion regarding the impact of number of eigenvector used to the accuracy drawn from the result of the NN method is also valid. 
+
+
+	\begin{figure}
+		\begin{center}
+			\includegraphics[width=0.9\linewidth]{correctRate_alter}
+			\caption{Correction rate for the alternative method}
+			\label{fig:q4_alter_rate}
+		\end{center}
+	\end{figure}
+
+
+\subsubsection{Example of failure cases}
+Here in Figure~\ref{fig:q4_alter_fail}, we demonstrate the cases of failed recognition as in NN method to visually exam the misclassification. Again we can observe some suspicious cause of misclassification such as the similarity of lighting in between (a) and (b), or the similarity of the shape of forehead between (c) and (d). However, these observations are rather intuitive and subjective and thus cannot be related to the condition that caused misclassification. The fact that the significant features (i.e. eigenfaces) extracted for PCA based recognition are not necessarily related with typical visual features (e.g. eyes, nose, mouth etc.), visual examination of failure cases may not be a constructive effort to identify the cause of failure.
+
+	\begin{figure}
+		\begin{center}
+			\includegraphics[width=0.9\linewidth]{q4_fail_alter}
+			\caption{Failed cases for the alternative method}
+			\label{fig:q4_alter_fail}
+		\end{center}
+	\end{figure}
+
+\subsubsection{Confusion matrix}
+Figure~\ref{fig:q4_confmat_alter} show the confusion matrix of alternative method of classification, which corresponds to a correction rate of 78\%. \\
+
+	\begin{figure}
+		\begin{center}
+			\includegraphics[width=0.9\linewidth]{confusion_matrix_alter}
+			\caption{Confusion matrix of alternative method classification, $M_{alter} = 8$}
+			\label{fig:q4_confmat_alter}
+		\end{center}
+	\end{figure}
+
+\subsection{Comparison between NN and alternative method}
+\begin{enumerate}
+	\item Accuracy\\
+	As we can see from Figure~\ref{fig:q4_nn_rate} and ~\ref{fig:q4_alter_rate}, the alternative method achieved higher accuracy in general. However, it's worth mentioning that the minimum amount of eigenvectors required for the alternative method is 52 (i.e. $M_{alter} = 1$). The accuracy rate achieved at this number of $M_{alter}$ is lower than the accuracy of NN method with ($M = 52$). Other than this exception, the alternative method delivered better recognition accuracy.\\
+	
+	\item Time consumption\\
+	To compare the two classification methods in terms of time efficiency, we measured the time consumed by the training and testing program by the stopwatch in MATLAB \texttt{tic} and \texttt{toc}. Again, we varied the number of eigenvectors used to measure the effect of that too. Figure~\ref{fig:q4_time_nn} and ~\ref{fig:q4_time_alter} show the training time, testing time and total time of NN method and the alternative method respectively. It can be concluded from the results that: a) the training time contributed to the majority of total time consumption for both methods; b) the time required for the NN method did not increase with increasing number of $M$, while the training time of the alternative method had a noticeable increase. This conclusion in particular reveals a trade-off between time consumption and accuracy for the alternative method when selecting the value of $M_{alter}$; c) the alternative method are more time consuming than the NN method. 
+	
+	\begin{figure}
+		\begin{center}
+			\includegraphics[width=0.9\linewidth]{time_NN}
+			\caption{Time consumed for the NN method}
+			\label{fig:q4_time_nn}
+		\end{center}
+	\end{figure}
+	
+		\begin{figure}
+			\begin{center}
+				\includegraphics[width=0.9\linewidth]{time_alter}
+				\caption{Time consumed for the alternative method}
+				\label{fig:q4_time_alter}
+			\end{center}
+		\end{figure}
+	
+	\item Memory \\
+	If we assume that the same amount of eigenvectors ($M$) were used for both methods, it can be found that both the NN method and the alternative method requires to store data of size $[M \times D]$ ($M = M_{alter} \times 52$ for the alternative method). Consequentially, the memory requirement of the two classification methods is primarily affected by the number and size of eigenvectors, as they are also most memory demanding and cannot be released during both training and testing period. However, it can be observed from Figure~\ref{fig:q4_nn_rate} and ~\ref{fig:q4_alter_rate}, the NN method requires fewer eigenvectors, equivalently fewer memory, to achieve its maximum accuracy.
+	
+\end{enumerate}
+
+\cite{Kim16}
 
 {\small
 \bibliographystyle{ieee}
 \bibliography{egbib}
 }
 
-\onecolumn
-\appendix
-\section{Appendix 1 Matlab Code}
-\subsection{Init.m}
-\lstinputlisting{init.m}
-
-\section{matlab code part 2}
-\lstinputlisting{init.m}
+%\onecolumn
+%\appendix
+%\section{Appendix 1 Matlab Code}
+%\subsection{Init.m}
+%\lstinputlisting{init.m}
+%
+%\section{matlab code part 2}
+%\lstinputlisting{init.m}
 
 
 
